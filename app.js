@@ -51,7 +51,9 @@ app.use(cors({
 
 
 
-
+  app.get('/',(req,res) => {
+    res.status(200).json(movies)
+  })
 
 
 app.get('/movies/', (req, res) => {
@@ -77,6 +79,7 @@ app.get('/movies/:id', (req, res) => {
 
     res.status(404).json({ message: 'movie not found' })
 })
+
 
 
 app.post('/movies', (req, res) => {

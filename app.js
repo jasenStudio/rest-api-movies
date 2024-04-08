@@ -1,13 +1,3 @@
-
-// * Instalaciones
-
-// * 1. npm i express -E
-// * 2. npm i zod     -E
-// * 3. npm i nodemon -D
-// * 4  npm i cors    -E
-
-
-
 //Importaciones y constantes
 const express = require('express'); 
 const app     = express();
@@ -15,14 +5,13 @@ const crypto  = require('node:crypto');//Crear id dinamicos
 const cors    = require('cors');
 
 
-//* CONFIGURACIONES *//
+
 
 
 //Obtener el request en JSON
 app.use(express.json());
 
-//puerto
-const PORT = process.env.PORT ?? 1234;
+
 
 //Validaciones
 const { validateMovie,validatePartialMovie } = require('./schemas/movie');  
@@ -62,10 +51,9 @@ app.use(cors({
 
 
 
-//* PETICIONES *//
 
 
-// *Todos la movies & generos
+
 app.get('/movies/', (req, res) => {
 
     const { genre } = req.query;
@@ -80,7 +68,7 @@ app.get('/movies/', (req, res) => {
     res.status(200).json(movies)
 })
 
-// * Single movie
+
 app.get('/movies/:id', (req, res) => {
     const { id } = req.params;
     const movie = movies.find(movie => movie.id === id);
@@ -90,7 +78,7 @@ app.get('/movies/:id', (req, res) => {
     res.status(404).json({ message: 'movie not found' })
 })
 
-// ! Create movie
+
 app.post('/movies', (req, res) => {
 
     const result = validateMovie(req.body);
@@ -114,7 +102,7 @@ app.post('/movies', (req, res) => {
 
 })
 
-// * Actualizar por segmento a un recurso 
+
 app.patch('/movies/:id',(req,res) => {
     
     const result     = validatePartialMovie(req.body);
@@ -156,6 +144,8 @@ app.delete('/movies/:id', (req, res) => {
     return res.json({ message: 'Movie deleted' })
   })
 
+  //puerto
+const PORT = process.env.PORT ?? 1234;
 
 app.listen(PORT, () => {
     console.log(`server listening on port http://localhost:${PORT}`)
